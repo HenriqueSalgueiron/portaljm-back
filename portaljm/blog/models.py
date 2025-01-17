@@ -61,6 +61,9 @@ class Comment(BaseModel):
     class Meta:
         verbose_name_plural = 'Comentários'
 
+    def __str__(self):
+        return self.text
+
 
 class SocialMedia(models.Model):
     name = models.CharField(max_length=255)
@@ -90,12 +93,18 @@ class PrivacyPolicy(BaseModel):
     class Meta:
         verbose_name_plural = 'Política de privacidade'
 
+    def __str__(self):
+        return 'Política de privacidade'
+
 
 class TermsOfService(BaseModel):
     content = RichTextField()
 
     class Meta:
         verbose_name_plural = 'Termos de uso'
+
+    def __str__(self):
+        return 'Termos de uso'
 
 
 class QuestionCategory(models.Model):
@@ -116,3 +125,6 @@ class Question(models.Model):
 
     class Meta:
         verbose_name_plural = 'Perguntas'
+
+    def __str__(self):
+        return self.text

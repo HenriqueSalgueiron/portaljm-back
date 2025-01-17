@@ -1,16 +1,31 @@
 from django.contrib import admin
+from django.core.exceptions import ValidationError
 
 from .models import (About, Article, Comment, PrivacyPolicy, Question,
                      QuestionCategory, SocialMedia, Subject, TermsOfService,
                      Video)
 
-admin.site.register(About)
+
+class SingletonModelAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+    def save_model(self, request, obj, form, change):
+        if not change and self.model.objects.exists():
+            raise ValidationError(
+                f'Only one instance of {self.model.__name__} is allowed.')
+        super().save_model(request, obj, form, change)
+
+
+admin.site.register(About, SingletonModelAdmin)
+admin.site.register(TermsOfService, SingletonModelAdmin)
+admin.site.register(PrivacyPolicy, SingletonModelAdmin)
 admin.site.register(Article)
 admin.site.register(Comment)
-admin.site.register(PrivacyPolicy)
 admin.site.register(Question)
 admin.site.register(QuestionCategory)
 admin.site.register(SocialMedia)
 admin.site.register(Subject)
-admin.site.register(TermsOfService)
 admin.site.register(Video)
