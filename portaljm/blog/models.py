@@ -2,7 +2,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 
-from portaljm.common.models import BaseModel
+from portaljm.common.models import TimeStampedModel
 
 
 class Subject(models.Model):
@@ -15,7 +15,7 @@ class Subject(models.Model):
         return self.name
 
 
-class Article(BaseModel):
+class Article(TimeStampedModel):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     content = RichTextField()
@@ -31,7 +31,7 @@ class Article(BaseModel):
         return self.title
 
 
-class Video(BaseModel):
+class Video(TimeStampedModel):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
@@ -46,7 +46,7 @@ class Video(BaseModel):
         return self.title
 
 
-class Comment(BaseModel):
+class Comment(TimeStampedModel):
     text = models.CharField(max_length=255)
     post = models.ForeignKey(Article, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -76,7 +76,7 @@ class SocialMedia(models.Model):
         return self.name
 
 
-class About(BaseModel):
+class About(TimeStampedModel):
     description = models.CharField(max_length=255)
     content = RichTextField()
 
@@ -87,7 +87,7 @@ class About(BaseModel):
         return 'Sobre'
 
 
-class PrivacyPolicy(BaseModel):
+class PrivacyPolicy(TimeStampedModel):
     content = RichTextField()
 
     class Meta:
@@ -97,7 +97,7 @@ class PrivacyPolicy(BaseModel):
         return 'Política de privacidade'
 
 
-class TermsOfService(BaseModel):
+class TermsOfService(TimeStampedModel):
     content = RichTextField()
 
     class Meta:
