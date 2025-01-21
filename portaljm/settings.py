@@ -87,6 +87,11 @@ REST_FRAMEWORK = {
     )
 }
 
+AUTHENTICATION_BACKENDS = [
+    'portaljm.accounts.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 
 SIMPLE_JWT = {
     'ALGORITHM': 'HS512',
