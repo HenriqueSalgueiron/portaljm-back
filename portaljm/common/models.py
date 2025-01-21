@@ -1,4 +1,5 @@
-# from django.core.exceptions import ValidationError
+from django.contrib import admin
+from django.core.exceptions import ValidationError
 from django.db import models
 from model_utils.fields import AutoCreatedField, AutoLastModifiedField
 
@@ -12,12 +13,14 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-# class SingletonModel(models.Model):
-#     class Meta:
-#         abstract = True
+class SingletonModelAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
 
-#     def save(self, *args, **kwargs):
-#         if not self.pk and self.__class__.objects.exists():
-#             raise ValidationError(
-#                 f"Only one {self.__class__.__name__} instance is allowed.")
-#         return super().save(*args, **kwargs)
+    def save_model(self, request, obj, form, change):
+        if not change and self.model.objects.exists():
+            raise ValidationError(
+                f'Only one instance of {self.model.__name__} is allowed.')
+        super().save_model(request, obj, form, change)
