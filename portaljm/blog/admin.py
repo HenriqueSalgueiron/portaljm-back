@@ -1,9 +1,19 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.core.exceptions import ValidationError
 
 from .models import (About, Article, Comment, PrivacyPolicy, Question,
                      QuestionCategory, SocialMedia, Subject, TermsOfService,
-                     Video)
+                     User, Video)
+
+
+class UserAdmin(BaseUserAdmin):
+    fieldsets = BaseUserAdmin.fieldsets + (
+        (None, {'fields': ('country', 'phone')}),
+    )
+    add_fieldsets = BaseUserAdmin.add_fieldsets + (
+        (None, {'fields': ('country', 'phone')}),
+    )
 
 
 class SingletonModelAdmin(admin.ModelAdmin):
@@ -19,6 +29,7 @@ class SingletonModelAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+admin.site.register(User, UserAdmin)
 admin.site.register(About, SingletonModelAdmin)
 admin.site.register(TermsOfService, SingletonModelAdmin)
 admin.site.register(PrivacyPolicy, SingletonModelAdmin)

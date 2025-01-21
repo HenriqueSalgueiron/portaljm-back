@@ -1,8 +1,14 @@
 from ckeditor.fields import RichTextField
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from portaljm.common.models import TimeStampedModel
+
+
+class User(AbstractUser):
+    country = models.CharField(max_length=10)
+    phone = models.CharField(max_length=20)
 
 
 class Subject(models.Model):
@@ -49,7 +55,8 @@ class Video(TimeStampedModel):
 class Comment(TimeStampedModel):
     text = models.CharField(max_length=255)
     post = models.ForeignKey(Article, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     parent = models.ForeignKey(
         'self',
         null=True,
