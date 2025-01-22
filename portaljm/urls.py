@@ -6,7 +6,7 @@ from portaljm.accounts.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include('portaljm.blog.urls')),
+    path('', include('portaljm.blog.urls')),
     path('login', LoginView.as_view(), name='email_login'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
 ]
