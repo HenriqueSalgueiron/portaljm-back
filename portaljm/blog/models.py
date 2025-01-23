@@ -16,8 +16,8 @@ class Subject(models.Model):
 
 
 class Article(TimeStampedModel):
-    title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    title = models.CharField(max_length=60)
+    description = models.CharField(max_length=150)
     content = RichTextField()
     reading_time = models.IntegerField(blank=True, null=True)
     cover_image = models.CharField(max_length=255, blank=True, null=True)
@@ -32,8 +32,8 @@ class Article(TimeStampedModel):
 
 
 class Video(TimeStampedModel):
-    title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    title = models.CharField(max_length=60)
+    description = models.CharField(max_length=150)
     url = models.CharField(max_length=255)
     cover_image = models.CharField(max_length=255, blank=True, null=True)
     subject = models.ForeignKey(
