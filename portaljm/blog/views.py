@@ -4,20 +4,29 @@ from rest_framework import viewsets
 
 from .models import (About, Article, Comment, PrivacyPolicy, Question,
                      SocialMedia, TermsOfService, Video)
-from .serializers import (AboutSerializer, ArticleSerializer,
-                          CommentSerializer, PrivacyPolicySerializer,
-                          QuestionSerializer, SocialMediaSerializer,
-                          TermsOfServiceSerializer, VideoSerializer)
+from .serializers import (AboutSerializer, ArticleDetailSerializer,
+                          ArticleListSerializer, CommentSerializer,
+                          PrivacyPolicySerializer, QuestionSerializer,
+                          SocialMediaSerializer, TermsOfServiceSerializer,
+                          VideoDetailSerializer, VideoListSerializer)
 
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
-    serializer_class = ArticleSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ArticleListSerializer
+        return ArticleDetailSerializer
 
 
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()
-    serializer_class = VideoSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return VideoListSerializer
+        return VideoDetailSerializer
 
 
 class CommentViewSet(viewsets.ModelViewSet):

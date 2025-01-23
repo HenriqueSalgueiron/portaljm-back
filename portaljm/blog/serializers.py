@@ -1,16 +1,38 @@
 from rest_framework import serializers
 
 from .models import (About, Article, Comment, PrivacyPolicy, Question,
-                     SocialMedia, TermsOfService, Video)
+                     SocialMedia, Subject, TermsOfService, Video)
 
 
-class ArticleSerializer(serializers.ModelSerializer):
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ['id', 'name']
+
+
+class ArticleListSerializer(serializers.ModelSerializer):
+    subject = SubjectSerializer()
+
+    class Meta:
+        model = Article
+        fields = ['id', 'title', 'description', 'cover_image', 'subject']
+
+
+class ArticleDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = '__all__'
 
 
-class VideoSerializer(serializers.ModelSerializer):
+class VideoListSerializer(serializers.ModelSerializer):
+    subject = SubjectSerializer()
+
+    class Meta:
+        model = Video
+        fields = ['id', 'title', 'description', 'cover_image', 'subject']
+
+
+class VideoDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
         fields = '__all__'
