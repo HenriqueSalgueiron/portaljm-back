@@ -21,6 +21,7 @@ class Article(TimeStampedModel):
     content = RichTextField()
     reading_time = models.IntegerField(blank=True, null=True)
     cover_image = models.CharField(max_length=255, blank=True, null=True)
+    banner_image = models.CharField(max_length=255, blank=True, null=True)
     subject = models.ForeignKey(
         Subject, on_delete=models.SET_NULL, blank=True, null=True)
 
