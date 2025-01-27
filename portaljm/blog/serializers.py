@@ -19,6 +19,8 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
+    subject = SubjectSerializer()
+
     class Meta:
         model = Article
         fields = '__all__'
@@ -33,6 +35,8 @@ class VideoListSerializer(serializers.ModelSerializer):
 
 
 class VideoDetailSerializer(serializers.ModelSerializer):
+    subject = SubjectSerializer()
+
     class Meta:
         model = Video
         fields = '__all__'
