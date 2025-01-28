@@ -85,8 +85,8 @@ class SocialMedia(models.Model):
 
 
 class About(TimeStampedModel):
-    description = models.CharField(max_length=255, verbose_name='Descrição')
     content = RichTextField(verbose_name='Conteúdo')
+    description = models.CharField(max_length=255, verbose_name='Descrição', blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Sobre'

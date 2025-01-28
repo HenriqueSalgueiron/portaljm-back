@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 from .models import (About, Article, Comment, PrivacyPolicy, Question,
-                     SocialMedia, Subject, TermsOfService, Video)
+                     QuestionCategory, SocialMedia, Subject, TermsOfService,
+                     Video)
 
 
 class SubjectSerializer(serializers.ModelSerializer):
@@ -77,7 +78,15 @@ class TermsOfServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class QuestionCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionCategory
+        fields = ['name']
+
+
 class QuestionSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source='category.name')
+
     class Meta:
         model = Question
         fields = '__all__'
