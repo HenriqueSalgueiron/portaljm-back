@@ -1,18 +1,21 @@
-# viewSet vs ModelView
-
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 
+from .filters import ArticleFilter, VideoFilter
 from .models import (About, Article, Comment, PrivacyPolicy, Question,
-                     SocialMedia, TermsOfService, Video)
+                     SocialMedia, Subject, TermsOfService, Video)
 from .serializers import (AboutSerializer, ArticleDetailSerializer,
                           ArticleListSerializer, CommentSerializer,
                           PrivacyPolicySerializer, QuestionSerializer,
-                          SocialMediaSerializer, TermsOfServiceSerializer,
-                          VideoDetailSerializer, VideoListSerializer)
+                          SocialMediaSerializer, SubjectSerializer,
+                          TermsOfServiceSerializer, VideoDetailSerializer,
+                          VideoListSerializer)
 
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ArticleFilter
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -22,6 +25,8 @@ class ArticleViewSet(viewsets.ModelViewSet):
 
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = VideoFilter
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -57,3 +62,8 @@ class TermsOfServiceViewSet(viewsets.ModelViewSet):
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+
+
+class SubjectViewSet(viewsets.ModelViewSet):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer

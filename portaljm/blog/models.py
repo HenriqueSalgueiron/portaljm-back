@@ -18,7 +18,7 @@ class Subject(models.Model):
 
 class Article(TimeStampedModel):
     title = models.CharField(max_length=60, verbose_name='Título')
-    description = models.CharField(max_length=150, verbose_name='Descrição')
+    description = models.CharField(max_length=650, verbose_name='Descrição')
     content = RichTextField(verbose_name='Conteúdo')
     reading_time = models.IntegerField(blank=True, null=True, help_text="Tempo de leitura em minutos", verbose_name='Tempo de leitura')
     cover_image = models.CharField(max_length=255, blank=True, null=True, help_text="Dimensões recomendadas: 468x272px", verbose_name='Imagem de capa')
@@ -36,7 +36,7 @@ class Article(TimeStampedModel):
 
 class Video(TimeStampedModel):
     title = models.CharField(max_length=60, verbose_name='Título')
-    description = models.CharField(max_length=150, verbose_name='Descrição')
+    description = models.CharField(max_length=650, verbose_name='Descrição')
     url = models.CharField(max_length=255, verbose_name='Link do youtube')
     cover_image = models.CharField(max_length=255, blank=True, null=True, help_text="Dimensões recomendadas: 468x272px", verbose_name='Imagem de capa')
     subject = models.ForeignKey(
