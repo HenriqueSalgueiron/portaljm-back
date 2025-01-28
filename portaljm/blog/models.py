@@ -133,7 +133,7 @@ class Question(models.Model):
     text = models.CharField(max_length=255, verbose_name='Texto')
     answer = RichTextField(verbose_name='Resposta')
     category = models.ForeignKey(
-        QuestionCategory, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Categoria')
+        QuestionCategory, on_delete=models.CASCADE, verbose_name='Categoria')
 
     class Meta:
         verbose_name_plural = 'Perguntas'
