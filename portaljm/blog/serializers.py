@@ -48,8 +48,12 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['id', 'author_name', 'created_at', 'text', 'parent']
+        fields = ['id', 'author_name', 'created_at', 'text', 'parent', 'children']
 
+    def get_children(self, obj):
+        if obj.children.exists():
+            return CommentSerializer(obj.children.all(), many=True).data
+        return []
 
 class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
