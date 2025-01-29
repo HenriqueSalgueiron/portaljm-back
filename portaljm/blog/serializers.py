@@ -47,11 +47,17 @@ class VideoDetailSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     author_name = serializers.CharField(source='author.username', read_only=True)
     content_type = serializers.CharField(write_only=True)
+    children = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
         fields = ['id', 'author_name', 'created_at', 'text', 'content_type', 'object_id', 'parent', 'children']
         read_only_fields = ['id', 'author_name', 'created_at', 'children']
+
+    def get_children(self, obj):
+        if obj.children.exists():
+            return CommentSerializer(obj.children.all(), many=True).data
+        return []
 
     def create(self, validated_data):
         content_type_str = validated_data.pop('content_type')

@@ -36,7 +36,7 @@ class VideoViewSet(viewsets.ModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
+    queryset = Comment.objects.all().order_by('-created_at').filter(parent=None)
     serializer_class = CommentSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = CommentFilter
