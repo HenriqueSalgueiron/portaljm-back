@@ -1,7 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 
-from .filters import ArticleFilter, VideoFilter
+from .filters import ArticleFilter, CommentFilter, VideoFilter
 from .models import (About, Article, Comment, PrivacyPolicy, Question,
                      SocialMedia, Subject, TermsOfService, Video)
 from .serializers import (AboutSerializer, ArticleDetailSerializer,
@@ -37,6 +37,8 @@ class VideoViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = CommentFilter
 
 
 class SocialMediaViewSet(viewsets.ModelViewSet):

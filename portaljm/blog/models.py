@@ -1,5 +1,7 @@
 from ckeditor.fields import RichTextField
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 from portaljm.common.models import TimeStampedModel
@@ -52,7 +54,9 @@ class Video(TimeStampedModel):
 
 class Comment(TimeStampedModel):
     text = models.CharField(max_length=255, verbose_name='Texto')
-    post = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Artigo')
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Autor')
     parent = models.ForeignKey(
