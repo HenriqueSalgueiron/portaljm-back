@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 
 from .models import (About, Article, Comment, PrivacyPolicy, Question,
@@ -44,16 +45,19 @@ class VideoDetailSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author_name = serializers.CharField(source='author.username')
+    author_name = serializers.CharField(source='author.username', read_only=True)
+    content_type = serializers.CharField(write_only=True)
 
     class Meta:
         model = Comment
-        fields = ['id', 'author_name', 'created_at', 'text', 'parent', 'children']
+        fields = ['id', 'author_name', 'created_at', 'text', 'content_type', 'object_id', 'parent', 'children']
+        read_only_fields = ['id', 'author_name', 'created_at', 'children']
 
-    def get_children(self, obj):
-        if obj.children.exists():
-            return CommentSerializer(obj.children.all(), many=True).data
-        return []
+    def create(self, validated_data):
+        content_type_str = validated_data.pop('content_type')
+        content_type = ContentType.objects.get(model=content_type_str)
+        validated_data['content_type'] = content_type
+        return super().create(validated_data)
 
 class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
