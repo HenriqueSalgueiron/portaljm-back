@@ -56,7 +56,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_children(self, obj):
         if obj.children.exists():
-            return CommentSerializer(obj.children.all(), many=True).data
+            children = obj.children.all().order_by('-created_at')
+            return CommentSerializer(children, many=True).data
         return []
 
     def create(self, validated_data):
