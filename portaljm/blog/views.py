@@ -3,14 +3,14 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from .filters import ArticleFilter, CommentFilter, VideoFilter
-from .models import (About, Article, Comment, PrivacyPolicy, Question,
-                     SocialMedia, Subject, TermsOfService, Video)
+from .models import (About, Article, Carousel, Comment, PrivacyPolicy,
+                     Question, SocialMedia, Subject, TermsOfService, Video)
 from .serializers import (AboutSerializer, ArticleDetailSerializer,
-                          ArticleListSerializer, CommentSerializer,
-                          PrivacyPolicySerializer, QuestionSerializer,
-                          SocialMediaSerializer, SubjectSerializer,
-                          TermsOfServiceSerializer, VideoDetailSerializer,
-                          VideoListSerializer)
+                          ArticleListSerializer, CarouselSerializer,
+                          CommentSerializer, PrivacyPolicySerializer,
+                          QuestionSerializer, SocialMediaSerializer,
+                          SubjectSerializer, TermsOfServiceSerializer,
+                          VideoDetailSerializer, VideoListSerializer)
 
 
 class ArticleViewSet(viewsets.ModelViewSet):
@@ -78,3 +78,8 @@ class QuestionViewSet(viewsets.ModelViewSet):
 class SubjectViewSet(viewsets.ModelViewSet):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
+
+
+class CarouselViewSet(viewsets.ModelViewSet):
+    queryset = Carousel.objects.all()
+    serializer_class = CarouselSerializer

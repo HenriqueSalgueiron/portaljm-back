@@ -145,3 +145,17 @@ class Question(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class Carousel(models.Model):
+    title = models.CharField(max_length=60, verbose_name='Título')
+    description = models.CharField(max_length=650, verbose_name='Descrição')
+    image = models.CharField(max_length=255, verbose_name='URL da imagem')
+    url = models.CharField(max_length=255, verbose_name='URL de destino')
+
+    class Meta:
+        verbose_name_plural = 'Carrossel'
+        verbose_name = 'Carrossel'
+
+    def __str__(self):
+        return self.title

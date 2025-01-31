@@ -1,9 +1,10 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import (AboutViewSet, ArticleViewSet, CommentViewSet,
-                    PrivacyPolicyViewSet, QuestionViewSet, SocialMediaViewSet,
-                    SubjectViewSet, TermsOfServiceViewSet, VideoViewSet)
+from .views import (AboutViewSet, ArticleViewSet, CarouselViewSet,
+                    CommentViewSet, PrivacyPolicyViewSet, QuestionViewSet,
+                    SocialMediaViewSet, SubjectViewSet, TermsOfServiceViewSet,
+                    VideoViewSet)
 
 router = DefaultRouter()
 router.register(r'articles', ArticleViewSet)
@@ -15,6 +16,7 @@ router.register(r'privacy-policy', PrivacyPolicyViewSet)
 router.register(r'terms-of-service', TermsOfServiceViewSet)
 router.register(r'questions', QuestionViewSet)
 router.register(r'subjects', SubjectViewSet)
+router.register(r'carousel', CarouselViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
