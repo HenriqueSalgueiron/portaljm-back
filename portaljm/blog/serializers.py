@@ -108,4 +108,4 @@ class QuestionSerializer(serializers.ModelSerializer):
 class CarouselSerializer(serializers.ModelSerializer):
     class Meta:
         model = Carousel
-        fields = ['id', 'title', 'description', 'image']
+        fields = ['id', 'title', 'description', 'image', 'url']
