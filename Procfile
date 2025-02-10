@@ -1,0 +1,1 @@
+web: gunicorn portaljm.wsgi:application --log-file -
