@@ -23,8 +23,9 @@ class Article(TimeStampedModel):
     description = models.CharField(max_length=650, verbose_name='Descrição')
     content = RichTextField(verbose_name='Conteúdo')
     reading_time = models.IntegerField(blank=True, null=True, help_text="Tempo de leitura em minutos", verbose_name='Tempo de leitura')
-    cover_image = models.CharField(max_length=255, blank=True, null=True, help_text="Dimensões recomendadas: 468x272px", verbose_name='Imagem de capa')
-    banner_image = models.CharField(max_length=255, blank=True, null=True, help_text="Dimensões recomendadas: 2160x740px", verbose_name='Imagem do banner')
+    cover_image = models.CharField(max_length=300, blank=True, null=True,
+                                   help_text="Dimensões recomendadas: 468x272px", verbose_name='Imagem de capa')
+    banner_image = models.CharField(max_length=300, blank=True, null=True, help_text="Dimensões recomendadas: 2160x740px", verbose_name='Imagem do banner')
     subject = models.ForeignKey(
         Subject, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Assunto')
 
@@ -40,7 +41,7 @@ class Video(TimeStampedModel):
     title = models.CharField(max_length=60, verbose_name='Título')
     description = models.CharField(max_length=650, verbose_name='Descrição')
     url = models.CharField(max_length=255, verbose_name='Link do youtube')
-    cover_image = models.CharField(max_length=255, blank=True, null=True, help_text="Dimensões recomendadas: 468x272px", verbose_name='Imagem de capa')
+    cover_image = models.CharField(max_length=300, blank=True, null=True, help_text="Dimensões recomendadas: 468x272px", verbose_name='Imagem de capa')
     subject = models.ForeignKey(
         Subject, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Assunto')
 
@@ -150,7 +151,7 @@ class Question(models.Model):
 class Carousel(models.Model):
     title = models.CharField(max_length=60, verbose_name='Título')
     description = models.CharField(max_length=650, verbose_name='Descrição')
-    image = models.CharField(max_length=255, verbose_name='URL da imagem')
+    image = models.CharField(max_length=300, verbose_name='URL da imagem')
     url = models.CharField(max_length=255, verbose_name='URL de destino')
 
     class Meta:
