@@ -4,9 +4,3 @@
 
 # IDE config
 setup.cfg
-
-# Python cache
-__pycache__/
-
-# Media files
-media

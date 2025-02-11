@@ -14,7 +14,6 @@ class SubjectSerializer(serializers.ModelSerializer):
 
 class ArticleListSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer()
-    cover_image = serializers.ImageField()
 
     class Meta:
         model = Article
@@ -23,7 +22,6 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer()
-    cover_image = serializers.ImageField()
 
     class Meta:
         model = Article
@@ -32,7 +30,6 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
 
 class VideoListSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer()
-    cover_image = serializers.ImageField()
 
     class Meta:
         model = Video
@@ -41,7 +38,6 @@ class VideoListSerializer(serializers.ModelSerializer):
 
 class VideoDetailSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer()
-    cover_image = serializers.ImageField()
 
     class Meta:
         model = Video
@@ -110,8 +106,6 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 
 class CarouselSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField()
-
     class Meta:
         model = Carousel
         fields = ['id', 'title', 'description', 'image', 'url']
