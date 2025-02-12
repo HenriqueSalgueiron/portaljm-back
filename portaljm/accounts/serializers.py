@@ -27,9 +27,13 @@ class LoginSerializer(serializers.Serializer):
         return {
             'refresh': str(refresh),
             'access': str(refresh.access_token),
-            'id': user.id,
-            'name': user.username,
-            'email': user.email,
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'country': user.country,
+                'phone': user.phone
+            }
         }
 
 
@@ -50,3 +54,10 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             phone=validated_data['phone']
         )
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username', 'email', 'country', 'phone')
+        read_only_fields = ('id', 'email')
